@@ -1,25 +1,25 @@
 version: '3'
 
 services:
-  app:
-    build: .
-    volumes:
-      - ./app:/app
-    ports:
-      - "9024:9024"  # Пробрасываем порт из контейнера на локальную машину
-    depends_on:
-      - db
-    environment:
-      SQLALCHEMY_DATABASE_URL: postgresql://postgres:password@db/vm_logs
 
   db:
     image: postgres
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: vm_logs
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - "9024:9024"  # Пробрасываем порт из контейнера на локальную машину
+    depends_on:
+      - db
+    environment:
+      SQLALCHEMY_DATABASE_URL: postgresql://postgres:password@db/vm_logs
 
 volumes:
   postgres_data:
