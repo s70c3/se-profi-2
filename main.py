@@ -8,7 +8,7 @@ from typing import List, Dict
 app = FastAPI()
 
 # Создание базы данных
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:password@localhost/vm_logs"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:password@db:5432/vm_logs"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
